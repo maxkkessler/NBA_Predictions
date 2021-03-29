@@ -9,19 +9,19 @@ def scrape(address, date):
     teams = {}
 
     #create files
-    file = open("texts/players {}".format(date), 'w')
+    file = open("NBA_Predictions/texts/players {}".format(date), 'w')
     file.write('test')
     file.close()
 
-    file = open("texts/teams {}".format(date), 'w')
+    file = open("NBA_Predictions/texts/teams {}".format(date), 'w')
     file.write('test')
     file.close()
 
-    file = open("texts/players {}".format(date),"r+")
+    file = open("NBA_Predictions/texts/players {}".format(date),"r+")
     file.truncate(0)
     file.close()
 
-    file = open("texts/teams {}".format(date),"r+")
+    file = open("NBA_Predictions/texts/teams {}".format(date),"r+")
     file.truncate(0)
     file.close()
 
@@ -91,12 +91,12 @@ def scrape(address, date):
 
 
 
-        f = open('texts/players {}'.format(date), 'a', encoding='utf-8')
+        f = open('NBA_Predictions/texts/players {}'.format(date), 'a', encoding='utf-8')
         f.write('{}, {}\n'.format(stats[0], stats[1:]))
         f.close()
 
     for team in teams:
-        f = open('texts/teams {}'.format(date), 'a', encoding='utf-8')
+        f = open('NBA_Predictions/texts/teams {}'.format(date), 'a', encoding='utf-8')
         f.write('{}, {}\n'.format(team, teams[team]))
         f.close()
 

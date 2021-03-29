@@ -7,11 +7,11 @@ def team_scraping(date, playoffs):
     breaker = 0         #if playoffs is on playoff games are included
 
     #create files
-    file = open("texts/schedule {}".format(date), 'w')
+    file = open("NBA_Predictions/texts/schedule {}".format(date), 'w')
     file.write('')
     file.close()
 
-    file = open("texts/schedule {}".format(date), 'w')
+    file = open("NBA_Predictions/texts/schedule {}".format(date), 'w')
     file.write('')
     file.close()
 
@@ -68,12 +68,12 @@ def team_scraping(date, playoffs):
             
             ls = [home_team, visitor_team, h_pts, v_pts, OT, attendance, start_time]
             
-            f = open('texts/schedule {}'.format(date), 'a', encoding='utf-8')
+            f = open('NBA_Predictions/texts/schedule {}'.format(date), 'a', encoding='utf-8')
             f.write('{}, {}, {}\n'.format(ls[0], ls[1], ls[2:]))
             f.close()
 
 if __name__ == '__main__':
-    playoffs = str(input('Input on if you want to include playoffs and off if you don\'t: '))
+    playoffs = str(input('Input "on" if you want to include playoffs and "off" if you don\'t: '))
     start = int(input('Input start date: '))
     stop = int(input('Input stop date: '))
     for date in range(start, stop, 1):
