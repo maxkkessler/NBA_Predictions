@@ -1,0 +1,1 @@
+from sklearn.scv import SMV
