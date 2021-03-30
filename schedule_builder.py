@@ -32,8 +32,8 @@ def schedule_bulder(file_name):
                 home_win, away_win = 'win', 'loss'
 
             # Enter game for home team
-            home_stats = ['home', home_win, home_pts, away_pts]
-            away_stats = ['away', away_win, away_pts, home_pts]
+            home_stats = ['home', home_win, home_pts, away_pts, away]
+            away_stats = ['away', away_win, away_pts, home_pts, home]
 
             # Enter the home teams stats
             if home in d:
@@ -52,18 +52,27 @@ def schedule_bulder(file_name):
 
 if __name__ == '__main__':
 
+
     date = int(input('Please input date: '))
     team = str(input('Please input team: '))
     wins = 0
     losses = 0
 
     d = schedule_bulder('schedule {}'.format(date))
+
+    for item in d.items():
+        print(item[1])
+        for i in range(10):
+            print(" ")
+
+    '''
     games = d[team]
     for index, game in enumerate(games):
-        print('Game {}: {} {} {} to {} at {}'.format(index, team, game[1], game[2], game[3], game[0] ))
+        print('Game {}: {} {} {} to {} at {} over {}'.format(index, team, game[1], game[2], game[3], game[0], game[4] ))
         if game[1] == 'win':
             wins += 1
         else:
             losses +=1
     
     print('\nRecord for season is {} {}'.format(wins, losses))
+    '''
