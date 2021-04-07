@@ -1,4 +1,6 @@
 import random
+import numpy as np
+from numpy.linalg import matrix_power
 
 
 #Practice to build a priority queue
@@ -81,9 +83,16 @@ if __name__ == '__main__':
         print(x)
         print(H)
 
-
-
     
+    i = np.array([[0.6, 0.2, 0.2],
+                  [0.3, 0.4, 0.3],
+                  [0.0, 0.3, 0.7]])
+    i3 = matrix_power(i, 1000)
+    print(i3)
+
+    i2 = np.array([[0.3, -0.3], [0.0, 0.4]])
+    i2 = matrix_power(i2, -1)
+    print(i2)
 
 
 

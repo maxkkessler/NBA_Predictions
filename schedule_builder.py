@@ -27,6 +27,9 @@ def schedule_bulder(file_name):
 
 
             home_win, away_win = 'loss', 'win'
+            if (home_pts == '') or (away_pts == ''):        #means we dont have the game stats i.e 2021
+                break
+                
 
             if int(home_pts) > int(away_pts):
                 home_win, away_win = 'win', 'loss'
@@ -60,12 +63,7 @@ if __name__ == '__main__':
 
     d = schedule_bulder('schedule {}'.format(date))
 
-    for item in d.items():
-        print(item[1])
-        for i in range(10):
-            print(" ")
 
-    '''
     games = d[team]
     for index, game in enumerate(games):
         print('Game {}: {} {} {} to {} at {} over {}'.format(index, team, game[1], game[2], game[3], game[0], game[4] ))
@@ -75,4 +73,3 @@ if __name__ == '__main__':
             losses +=1
     
     print('\nRecord for season is {} {}'.format(wins, losses))
-    '''

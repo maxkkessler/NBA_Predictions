@@ -5,6 +5,13 @@ from schedule_builder import schedule_bulder
 from dictify import dictify
 import numpy as np
 
+def normalize(arr):
+    d = 0
+    for i in arr:
+        d += i**2
+    d = d**(1/2)
+    for index in range(len(arr)):
+        arr[index] = arr[index] / d
 
 def add_arrays(arr1, arr2):
     arr3 = []
@@ -26,7 +33,9 @@ def subtract(arr1, arr2):
         arr3.append(arr1[index]-arr2[index])
     return arr3
 
-def team_stats(date):
+
+#Function gets the stats of all the top players on all teams and combines them in a dictionary by team name. Top 7 players are included
+def teams_stats(date):
     teams = dictify('teams {}'.format(date), 'teams')
     players = dictify('players {}'.format(date), 'players')
     d = {}        #dictionary holding all the team stats
@@ -44,7 +53,7 @@ def team_stats(date):
             mins.append(float(stats[5]))
 
         mins.sort(reverse=True)     # sorted list of minutes played
-        cutoff = mins[7]     #abitrary cutoff. Not gonna count the people who dont play that much, only top 8
+        cutoff = mins[6]     #abitrary cutoff. Not gonna count the people who dont play that much, only top 7
 
 
         for p in players_on_team:
@@ -64,9 +73,10 @@ def team_stats(date):
     return d
 
 
+#Does every matchup of the season subtracting the total team stats, home-away
 def data_combo(date):   
     schedule = schedule_bulder('schedule {}'.format(date))      #get the schedule for the year
-    stats = team_stats(date)
+    stats = teams_stats(date)
 
     target = []     #contains wins/losses
     data = []       #contains the data
@@ -86,6 +96,7 @@ def data_combo(date):
                     home = name
                     away = game[4]
                     array = subtract(stats[home], stats[away])
+                    normalize(array)
                     data.append(array)
 
                 else:
@@ -93,6 +104,7 @@ def data_combo(date):
                     home = name
                     away = game[4]
                     array = subtract(stats[home], stats[away])
+                    normalize(array)
                     data.append(array)
     
     return (data, target)
@@ -101,6 +113,6 @@ def data_combo(date):
 
 if __name__ == '__main__':
     
-    data, target = data_combo(2015)
+    data, target = data_combo(2019)
     print(data)
     
