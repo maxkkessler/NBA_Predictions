@@ -3,6 +3,10 @@ from SVM_data import data_combo
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
 
+
+#Uses sklearn random forest to predict NBA winners
+
+
 def random_forest():
     X_train = []
     y_train = []

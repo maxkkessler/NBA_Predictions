@@ -2,6 +2,10 @@ from bs4 import BeautifulSoup
 import requests
 
 
+
+#Scraped the player stats creating text files of them
+#Also creates a text file of the teams with all the players
+
 def scrape(address, date):
     html_text = requests.get(address).text
     soup = BeautifulSoup(html_text, 'lxml')

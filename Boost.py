@@ -11,6 +11,8 @@ from sklearn.ensemble import AdaBoostClassifier
 
 #Try xgboost
 
+#Uses the sklearn boosting algorithm to predict winners
+
 def boost_function(games):
     X_train = []
     y_train = []

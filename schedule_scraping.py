@@ -2,6 +2,9 @@ from bs4 import BeautifulSoup
 import requests
 
 
+
+#This scrapes the schedules from a particular year and puts it in a text file
+
 def team_scraping(date, playoffs):
 
     breaker = 0         #if playoffs is on playoff games are included

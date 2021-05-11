@@ -6,7 +6,11 @@ from SVM_data import data_combo
 from SVM_data import teams_stats
 from SVM_data import subtract
 
+
+
+
 def data_combo_2teams(games):
+    #Takes a list of matchups and returns a list of their combined data. Just subtract away array from home array
     data = []
     for game in games:
         date = 2021     #current date
@@ -19,6 +23,8 @@ def data_combo_2teams(games):
 
 
 def svm_function(games):
+    #First model. Uses SVM to predict NBA winners
+
     X_train = []
     y_train = []
     for date in range(2018, 2022):
