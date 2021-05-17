@@ -18,7 +18,7 @@ def team_scraping(date, playoffs):
     file.write('')
     file.close()
 
-    months = ['october', 'november', 'december', 'january', 'february', 'march', 'april', 'may', 'june']
+    months = ['october-2019','october', 'november', 'december', 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october-2020']
     for month in months:
         
         if breaker:     #checks if breaker was turned on i.e. no playoff games
@@ -31,45 +31,42 @@ def team_scraping(date, playoffs):
         
         
         body = soup.find('tbody')
-        if not body:
+        if not body:                #Essentially checks if this is a real page, if it is not it won't have body (hopefully). Some seasons do not have all the months
             continue
+
+        if int(date) == 2020 and month == 'april':  #An exception. If this address takes us to the april schedule that was not actually played
+            continue 
+
 
         games = body.find_all('tr')     #gets all the games 
         for game in games:
 
-            start_time = None      # sets the start time to None so that if the game is before 2001 they still have a start time
-
-            offset = 0      # this will allow me to ignore start time if necessary
-
-            # if the game is before 2001 there is no start time
-            if int(date) < 2001:
-                offset = -1
-
-            # Have to skip the playoff banner
+            # Have to skip the playoff banner and decide if playoffs are included or not
             if game.find('th').text == 'Playoffs':
                 if playoffs =='off':
                     breaker = 1
                     break
                 else:
                     continue
-                
 
-            stuff = game.find_all('td')
+            stuff = game.find_all('td') #gets the actual game
 
-            if offset == 0:         #checks if date is before 2001
-                start_time = stuff[offset].text
+            offset = 0      #this assumes we do not need to skip the first box i.e. start time
 
-            visitor_team = stuff[offset+1]['csk'][:3]
-            v_pts = stuff[offset+2].text
-            home_team = stuff[offset+3]['csk'][:3]
-            h_pts = stuff[offset+4].text
-            if stuff[offset+6].text: 
+            if stuff[0]['data-stat'] != "visitor_team_name":        #checks if it includes start time or not. Some seasons have the start time and some do not
+                offset = 1      #Will allows us to skip start time
+
+            visitor_team = stuff[offset]['csk'][:3]
+            v_pts = stuff[offset+1].text
+            home_team = stuff[offset+2]['csk'][:3]
+            h_pts = stuff[offset+3].text
+            if stuff[offset+5].text: 
                 OT = 1
             else:
                 OT = 0
-            attendance = stuff[offset+7].text
+            attendance = stuff[offset+6].text
             
-            ls = [home_team, visitor_team, h_pts, v_pts, OT, attendance, start_time]
+            ls = [home_team, visitor_team, h_pts, v_pts, OT, attendance]
             
             f = open('NBA_Predictions/texts/schedule {}'.format(date), 'a', encoding='utf-8')
             f.write('{}, {}, {}\n'.format(ls[0], ls[1], ls[2:]))
